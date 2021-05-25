@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DAL.Entities
 {
-    public class User : IdentityUser<Guid>
+    public class User : IdentityUser
     {
-        public IList<Task> Tasks { get; set; }
+        public IList<UserTask> Tasks { get; set; }
 
     }
 }

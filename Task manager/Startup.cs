@@ -1,7 +1,11 @@
+using BLL.Infrastructure;
+using BLL.Service;
 using DAL;
+using DAL.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -34,7 +38,11 @@ namespace Task_manager
                 configuration.RootPath = "ClientApp/dist";
             });
             services.AddAuthentication().AddCookie(op => op.LoginPath = "/Login");
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAdminService, AdminService>();
 
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
         }
 
