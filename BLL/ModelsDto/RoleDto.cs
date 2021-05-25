@@ -8,5 +8,6 @@ namespace BLL.ModelsDto
 {
     public class RoleDto
     {
+
     }
 }

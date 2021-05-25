@@ -10,6 +10,6 @@ namespace BLL.ModelsDto
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public Status Status { get; set; }
+        public StatusDto Status { get; set; }
     }
 }

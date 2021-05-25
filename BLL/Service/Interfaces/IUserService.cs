@@ -9,8 +9,6 @@ namespace BLL.Infrastructure
 {
     public interface IUserService
     {
-        Task RegisterUser();
         Task Login();
-        Task<List<User>> GetAllUsers();
     }
 }

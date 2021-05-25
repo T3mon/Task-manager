@@ -1,5 +1,6 @@
 using BLL.Infrastructure;
 using BLL.Service;
+using BLL.Service.Interfaces;
 using DAL;
 using DAL.Entities;
 using Microsoft.AspNetCore.Builder;
@@ -41,8 +42,12 @@ namespace Task_manager
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAdminService, AdminService>();
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            
+            services.AddIdentity<User, Role>(x =>
+            {
+                x.Password.RequireLowercase = true;
+                x.Password.RequireNonAlphanumeric = false;
+            }).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
         }
 
