@@ -1,0 +1,36 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="active"> Register </h2>
+
+
+    <!-- Login Form -->
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <input type="text" id="login" class="fadeIn second text-box" name="login" formControlName="email" placeholder="email">
+      <small *ngIf="isControlInvalid('lastName')"><sup>*</sup>email is required</small>
+
+      <input type="password" id="password" class="fadeIn third text-box" name="password" formControlName="password" placeholder="password">
+      <small *ngIf="isControlInvalid('password')"><sup>*</sup>password is required</small>
+
+      <!-- Email-->
+      <input type="password" id="password repeat" class="fadeIn third text-box" formControlName="confirmPassword" name="password" placeholder="repeat password">
+      <small *ngIf="isControlInvalid('lastName')">'email' is required</small>
+      <!-- Email validation-->
+      <div class="invalid-feedback" *ngIf="submitted && myForm.email.errors?.required">
+        <sup>*</sup>Please enter your email
+      </div>
+      <div class="invalid-feedback" *ngIf="submitted && myForm.email.errors?.pattern">
+        <sup>*</sup>Please enter valid email
+      </div>
+
+
+      <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+      
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Forgot Password?</a>
+    </div>
+
+  </div>
+</div>
