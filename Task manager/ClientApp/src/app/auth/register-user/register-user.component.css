@@ -10,7 +10,9 @@ body {
   font-family: "Poppins", sans-serif;
   height: 100vh;
 }
-
+sup{
+    color: red;
+}
 a {
   color: #92badd;
   display: inline-block;

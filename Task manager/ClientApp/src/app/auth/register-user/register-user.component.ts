@@ -14,23 +14,27 @@ export class RegisterUserComponent implements OnInit {
   public fb: FormBuilder;
 
   registrationApplicationForm: FormGroup = this.formBuilder.group({
-    email: ['', Validators.required, Validators.email],
+    email: ['', [Validators.required, Validators.email]],
     passwrod: ['', Validators.required],
     confirm: ['', Validators.required]
   })
 
   private baseUrl: string;
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, @Inject('BASE_URL') baseUrl: string)  {
+  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
   }
 
 
-  public isControlInvalid(controllName: string): boolean {
-    let control = this.registrationApplicationForm.get(controllName);
+  public isControlInvalid(controlName: string): boolean {
+    //let control = this.registrationApplicationForm.get(controllName);
+    //return !control.valid;
+    return this.registrationApplicationForm.controls[controlName].invalid && this.registrationApplicationForm.controls[controlName].touched
 
-    return !control.value;
 
+  }
+  public hasError = (controlName: string, errorName: string) => {
+    return this.registrationApplicationForm.controls[controlName].hasError(errorName)
   }
 
   public onSubmit(registerFormValue) {
@@ -47,8 +51,6 @@ export class RegisterUserComponent implements OnInit {
 
     this.http.post(this.baseUrl + 'account/Registration', user).subscribe(
       result => {
-        //const token = (<any>result).token;
-        //localStorage.setItem('jwt', token);
         console.log("Successful registration");
 
         this.router.navigate(['/home']);
