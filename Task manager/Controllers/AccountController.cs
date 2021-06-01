@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.Infrastructure;
+using BLL.ModelsDto;
 using BLL.Service;
 using DAL.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -36,15 +37,33 @@ namespace Task_manager.Controllers
         {
             return null;
         }
+        [HttpPost("Registration")]
+        public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
+        {
+            if (userForRegistration == null || !ModelState.IsValid)
+                return BadRequest();
+
+            var user = _mapper.Map<User>(userForRegistration);
+
+            var result = await _userManager.CreateAsync(user, userForRegistration.Password);
+            if (!result.Succeeded)
+            {
+                var errors = result.Errors.Select(e => e.Description);
+
+                return BadRequest(new RegistrationResponseDto { Errors = errors });
+            }
+
+            return StatusCode(201);
+        }
+
         [HttpPost("Login")]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Login(User model, string returnUrl = "")
+        public async Task<IActionResult> Login([FromBody] UserForLoginDto userForRegistration)
         {
-            if (!TryValidateModel(model)) return StatusCode(500);
+            if (!TryValidateModel(userForRegistration)) return StatusCode(500);
             var user = new User()
             {
-                PasswordHash = model.PasswordHash,
-                UserName = model.UserName
+                UserName = userForRegistration.Email
             };
             var res = await _signInManager.PasswordSignInAsync(user.UserName, user.PasswordHash, false, false);
             if (res.Succeeded)
@@ -53,16 +72,6 @@ namespace Task_manager.Controllers
             }
             return StatusCode(204);
         }
-
-        //public IActionResult Register()
-        //{
-
-        //}
-
-        //public IActionResult List()
-        //{
-
-        //}
 
     }
 }

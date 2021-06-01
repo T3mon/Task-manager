@@ -9,7 +9,6 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { LoginUserComponent } from './login-user/login-user.component';
-import { RegisterUserComponent } from './register-user/register-user.component';
 
 @NgModule({
   declarations: [
@@ -17,8 +16,7 @@ import { RegisterUserComponent } from './register-user/register-user.component';
     NavMenuComponent,
     HomeComponent,
     FetchDataComponent,
-    LoginUserComponent,
-    RegisterUserComponent
+    LoginUserComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,7 +26,7 @@ import { RegisterUserComponent } from './register-user/register-user.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'login', component: LoginUserComponent },
-      { path: 'register', component: RegisterUserComponent },
+      { path: 'authentication', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
       { path: 'fetch-data', component: FetchDataComponent },
     ])
   ],

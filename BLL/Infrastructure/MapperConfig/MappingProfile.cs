@@ -13,9 +13,12 @@ namespace BLL.Infrastructure.MapperConfig
     {
         public MappingProfile()
         {
-            CreateMap<User, UserDto>();
-            CreateMap<UserDto, User>();
-            
+            CreateMap<User, UserForLoginDto>();
+            CreateMap<UserForLoginDto, User>();
+
+            CreateMap<UserForRegistrationDto, User>()
+        .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
+
             CreateMap<Role, RoleDto>();
             CreateMap<RoleDto, User>();
             

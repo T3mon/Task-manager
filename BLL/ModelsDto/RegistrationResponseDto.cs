@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace BLL.ModelsDto
 {
-    public class UserDto
+    public class RegistrationResponseDto
     {
+        public bool IsSuccessfulRegistration { get; set; }
+        public IEnumerable<string> Errors { get; set; }
     }
 }
