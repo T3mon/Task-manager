@@ -5,7 +5,7 @@
 
 
     <!-- Login Form -->
-    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit(registrationForm.value)">
       <input type="text" id="login" class="fadeIn second text-box" name="login" formControlName="email" placeholder="email">
       <small *ngIf="isControlInvalid('lastName')"><sup>*</sup>email is required</small>
 

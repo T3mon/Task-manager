@@ -26,7 +26,7 @@ import { LoginUserComponent } from './login-user/login-user.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'login', component: LoginUserComponent },
-      { path: 'authentication', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+      { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
       { path: 'fetch-data', component: FetchDataComponent },
     ])
   ],

@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserForRegistrationDto } from '../../_interfaces/user/userForRegistrationDto.model';
 
 @Component({
   selector: 'app-register-user',
@@ -7,7 +10,7 @@ import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
   styleUrls: ['./register-user.component.css']
 })
 export class RegisterUserComponent implements OnInit {
-  registrationApplication: RegistrationApplication ;
+  registrationApplication: RegistrationApplication;
   public fb: FormBuilder;
 
   registrationApplicationForm: FormGroup = this.formBuilder.group({
@@ -16,8 +19,10 @@ export class RegisterUserComponent implements OnInit {
     confirm: ['', Validators.required]
   })
 
+  private baseUrl: string;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, @Inject('BASE_URL') baseUrl: string)  {
+    this.baseUrl = baseUrl;
   }
 
 
@@ -28,21 +33,35 @@ export class RegisterUserComponent implements OnInit {
 
   }
 
-    public onSubmit() {
-      this.registrationApplicationForm = this.registrationApplicationForm.value;
+  public onSubmit(registerFormValue) {
 
-      localStorage.setItem('promotionApplication', JSON.stringify(this.registrationApplication));
+    const formValues = { ...registerFormValue };
+
+    const user: UserForRegistrationDto = {
+      firstName: formValues.firstName,
+      lastName: formValues.lastName,
+      email: formValues.email,
+      password: formValues.password,
+      confirmPassword: formValues.confirm
+    };
+
+    this.http.post(this.baseUrl + 'account/Registration', user).subscribe(
+      result => {
+        //const token = (<any>result).token;
+        //localStorage.setItem('jwt', token);
+        console.log("Successful registration");
+
+        this.router.navigate(['/home']);
+      },
+      error => {
+        console.log(error.error.errors);
+      }
+    );
 
   }
-  private populateForm() {
-    this.registrationApplication = JSON.parse(localStorage.getItem('promotionApplication'));
 
-    if (this.registrationApplication) {
-      this.registrationApplicationForm.setValue(this.registrationApplication);
-    }
+  ngOnInit() {
   }
-ngOnInit() {
-}
 
 }
 export class RegistrationApplication {
