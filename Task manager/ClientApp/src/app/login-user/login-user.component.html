@@ -5,7 +5,7 @@
 
 
     <!-- Login Form -->
-    <form [formGroup]="loginApplicationForm" (ngSubmit)="onSubmit(registrationApplicationForm.value)">
+    <form [formGroup]="loginApplicationForm" (ngSubmit)="onSubmit(loginApplicationForm.value)">
       <input type="text" id="email" class="fadeIn second text-box" name="email" formControlName="email" placeholder="email"><br />
       <small *ngIf="isControlInvalid('email') && hasError('email', 'required')"><sup>*</sup>email is required</small>
       <small *ngIf="isControlInvalid('email') && hasError('email', 'email')"><sup>*</sup>Please provide a valid email</small>
@@ -14,7 +14,7 @@
       <small *ngIf="isControlInvalid('password') && hasError('password', 'required')"><sup>*</sup>password is required</small>
 
       <br />
-      <input [disabled]="!loginApplicationForm.valid" type="submit" class="fadeIn fourth" value="Log In">
+      <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
 
   </div>

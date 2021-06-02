@@ -12,10 +12,9 @@ import { UserForLoginDto } from '../_interfaces/user/userForLoginDto';
 export class LoginUserComponent implements OnInit {
 
 
-  registrationApplicationForm: FormGroup = this.formBuilder.group({
+  loginApplicationForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
-    passwordConfirm: ['', Validators.required]
+    password: ['', Validators.required]
   })
 
 
@@ -31,12 +30,12 @@ export class LoginUserComponent implements OnInit {
   }
 
   public isControlInvalid(controlName: string): boolean {
-    return this.registrationApplicationForm.controls[controlName].invalid && this.registrationApplicationForm.controls[controlName].touched
+    return this.loginApplicationForm.controls[controlName].invalid && this.loginApplicationForm.controls[controlName].touched
 
 
   }
   public hasError = (controlName: string, errorName: string) => {
-    return this.registrationApplicationForm.controls[controlName].hasError(errorName)
+    return this.loginApplicationForm.controls[controlName].hasError(errorName)
   }
 
   public onSubmit(loginFormValue) {
@@ -47,6 +46,7 @@ export class LoginUserComponent implements OnInit {
       email: formValues.email,
       password: formValues.password
     };
+
     this.http.post(this.baseUrl + 'api/accounts/Login', user).subscribe(
       result => {
         console.log("Successful login");

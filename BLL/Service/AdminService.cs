@@ -1,6 +1,8 @@
 ﻿using BLL.Service.Interfaces;
 using DAL;
 using DAL.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,21 +13,16 @@ namespace BLL.Service
 {
     public class AdminService : IAdminService
     {
-        private readonly IApplicationDbContext _applicationDbContext;
 
-        public AdminService(IApplicationDbContext applicationDbContext)
+        private readonly UserManager<User> _userManager;
+        public AdminService(UserManager<User> userManager)
         {
-            _applicationDbContext = applicationDbContext;
+            _userManager = userManager;
         }
 
-        public Task<List<User>> GetAllUsers()
+        public async Task<List<User>> GetAllUsers()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task RegisterUser()
-        {
-            throw new NotImplementedException();
+            return await _userManager.Users.ToListAsync();
         }
     }
 }

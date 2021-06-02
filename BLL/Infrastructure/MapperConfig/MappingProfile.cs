@@ -19,6 +19,9 @@ namespace BLL.Infrastructure.MapperConfig
             CreateMap<UserForRegistrationDto, User>()
         .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
 
+            CreateMap<UserForLoginDto, User>()
+        .ForMember(u => u.UserName, opt => opt.MapFrom(x => x.Email));
+
             CreateMap<Role, RoleDto>();
             CreateMap<RoleDto, User>();
             

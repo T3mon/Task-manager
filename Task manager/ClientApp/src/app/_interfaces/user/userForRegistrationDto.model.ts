@@ -1,4 +1,4 @@
-export interface UserForRegistrationDto {
+export interface UseruFullDto {
   email: string;
   password: string;
   confirmPassword: string;

@@ -28,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       { path: 'home', component: HomeComponent, pathMatch: 'full' },
       { path: '', component: LoginUserComponent },
       { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+      { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
       { path: 'fetch-data', component: FetchDataComponent },
     ]),
     BrowserAnimationsModule

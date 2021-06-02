@@ -52,20 +52,18 @@ namespace Task_manager.Controllers
 
                 return BadRequest(new RegistrationResponseDto { Errors = errors });
             }
-
+            
             return StatusCode(201);
         }
 
         [HttpPost("Login")]
-        [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Login([FromBody] UserForLoginDto userForRegistration)
+        public async Task<IActionResult> Login([FromBody] UserForLoginDto userForLogin)
         {
-            if (!TryValidateModel(userForRegistration)) return StatusCode(500);
-            var user = new User()
-            {
-                UserName = userForRegistration.Email
-            };
-            var res = await _signInManager.PasswordSignInAsync(user.UserName, user.PasswordHash, false, false);
+            if (!TryValidateModel(userForLogin)) return StatusCode(500);
+
+            var user = _mapper.Map<User>(userForLogin);
+
+            var res = await _signInManager.PasswordSignInAsync(userForLogin.Email, userForLogin.Password, true, false);
             if (res.Succeeded)
             {
                 return StatusCode(200);

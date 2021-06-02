@@ -10,6 +10,5 @@ namespace BLL.Service.Interfaces
     public interface IAdminService
     {
         Task<List<User>> GetAllUsers();
-        Task RegisterUser();
     }
 }
