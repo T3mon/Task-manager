@@ -1,7 +1,9 @@
+using AutoMapper;
 using BLL.Infrastructure;
 using BLL.Service;
 using BLL.Service.Interfaces;
 using DAL;
+using BLL.Infrastructure.MapperConfig;
 using DAL.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +30,14 @@ namespace Task_manager
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            // Auto Mapper Configurations
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(Configuration["SqlServerConnection"], b => b.MigrationsAssembly("DAL")));
 

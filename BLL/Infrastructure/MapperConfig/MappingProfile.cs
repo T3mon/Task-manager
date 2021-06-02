@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Infrastructure.MapperConfig
 {
-    class MappingProfile : Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {

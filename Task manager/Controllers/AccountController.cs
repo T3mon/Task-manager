@@ -37,7 +37,7 @@ namespace Task_manager.Controllers
         {
             return null;
         }
-        [HttpPost("Registration")]
+        [HttpPost("RegisterUser")]
         public async Task<IActionResult> RegisterUser([FromBody] UserForRegistrationDto userForRegistration)
         {
             if (userForRegistration == null || !ModelState.IsValid)

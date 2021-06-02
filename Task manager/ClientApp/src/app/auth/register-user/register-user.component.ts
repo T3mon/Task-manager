@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormArray, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserForRegistrationDto } from '../../_interfaces/user/userForRegistrationDto.model';
 
@@ -10,13 +10,14 @@ import { UserForRegistrationDto } from '../../_interfaces/user/userForRegistrati
   styleUrls: ['./register-user.component.css']
 })
 export class RegisterUserComponent implements OnInit {
-  registrationApplication: RegistrationApplication;
-  public fb: FormBuilder;
+
+  roles: any = ['Administrator', 'TeamManager', 'Developer']
 
   registrationApplicationForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
-    passwrod: ['', Validators.required],
-    confirm: ['', Validators.required]
+    password: ['', Validators.required],
+    passwordConfirm: ['', Validators.required],
+    role: new FormControl(this.roles)
   })
 
   private baseUrl: string;
@@ -27,11 +28,7 @@ export class RegisterUserComponent implements OnInit {
 
 
   public isControlInvalid(controlName: string): boolean {
-    //let control = this.registrationApplicationForm.get(controllName);
-    //return !control.valid;
     return this.registrationApplicationForm.controls[controlName].invalid && this.registrationApplicationForm.controls[controlName].touched
-
-
   }
   public hasError = (controlName: string, errorName: string) => {
     return this.registrationApplicationForm.controls[controlName].hasError(errorName)
@@ -41,33 +38,32 @@ export class RegisterUserComponent implements OnInit {
 
     const formValues = { ...registerFormValue };
 
-    const user: UserForRegistrationDto = {
-      firstName: formValues.firstName,
-      lastName: formValues.lastName,
-      email: formValues.email,
-      password: formValues.password,
-      confirmPassword: formValues.confirm
-    };
 
-    this.http.post(this.baseUrl + 'account/Registration', user).subscribe(
-      result => {
-        console.log("Successful registration");
+    if (formValues.password == formValues.passwordConfirm) {
+      const user: UserForRegistrationDto = {
+        email: formValues.email,
+        password: formValues.password,
+        confirmPassword: formValues.passwordConfirm,
+        role: formValues.role
+      };
+      this.http.post(this.baseUrl + 'api/accounts/RegisterUser', user).subscribe(
+        result => {
+          console.log("Successful registration");
 
-        this.router.navigate(['/home']);
-      },
-      error => {
-        console.log(error.error.errors);
-      }
-    );
+          this.router.navigate(['/home']);
+        },
+        error => {
+          console.log(error.error.errors);
+        }
+      );
+    }
+    else {
+      alert("passwords dont match");
+    }
 
   }
 
   ngOnInit() {
   }
-
-}
-export class RegistrationApplication {
-  email: string;
-  password: string;
 
 }

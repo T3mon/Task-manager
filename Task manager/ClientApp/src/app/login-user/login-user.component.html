@@ -5,16 +5,17 @@
 
 
     <!-- Login Form -->
-    <form>
-      <input type="text" id="login" class="fadeIn second text-box" name="login" placeholder="your email">
-      <input type="password" id="password" class="fadeIn third text-box" name="password" placeholder="your password">
-      <input type="submit" class="fadeIn fourth" value="Log In">
-    </form>
+    <form [formGroup]="loginApplicationForm" (ngSubmit)="onSubmit(registrationApplicationForm.value)">
+      <input type="text" id="email" class="fadeIn second text-box" name="email" formControlName="email" placeholder="email"><br />
+      <small *ngIf="isControlInvalid('email') && hasError('email', 'required')"><sup>*</sup>email is required</small>
+      <small *ngIf="isControlInvalid('email') && hasError('email', 'email')"><sup>*</sup>Please provide a valid email</small>
 
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
-    </div>
+      <input type="password" id="password" class="fadeIn third text-box" name="password" formControlName="password" placeholder="password"><br />
+      <small *ngIf="isControlInvalid('password') && hasError('password', 'required')"><sup>*</sup>password is required</small>
+
+      <br />
+      <input [disabled]="!loginApplicationForm.valid" type="submit" class="fadeIn fourth" value="Log In">
+    </form>
 
   </div>
 </div>

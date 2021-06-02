@@ -5,27 +5,26 @@
 
 
     <!-- Login Form -->
-    <form [formGroup]="registrationApplicationForm" (ngSubmit)="onSubmit(registrationForm.value)">
-      <input type="text" id="email" class="fadeIn second text-box" name="email" formControlName="email" placeholder="email"><br />
+    <form [formGroup]="registrationApplicationForm" (ngSubmit)="onSubmit(registrationApplicationForm.value)">
+      <input type="text" id="email" class="fadeIn first text-box" name="email" formControlName="email" placeholder="email"><br />
       <small *ngIf="isControlInvalid('email') && hasError('email', 'required')"><sup>*</sup>email is required</small>
       <small *ngIf="isControlInvalid('email') && hasError('email', 'email')"><sup>*</sup>Please provide a valid email</small>
 
-      <input type="password" id="password" class="fadeIn third text-box" name="password" formControlName="password" placeholder="password"><br />
+      <input type="password" id="password" class="fadeIn second text-box" name="password" formControlName="password" placeholder="password"><br />
       <small *ngIf="isControlInvalid('password') && hasError('password', 'required')"><sup>*</sup>password is required</small>
 
       <input type="password" id="passwordConfirm" class="fadeIn third text-box" name="passwordConfirm" formControlName="passwordConfirm" placeholder="repeat password"><br />
       <small *ngIf="isControlInvalid('passwordConfirm') && hasError('passwordConfirm', 'required')"><sup>*</sup>password needs confirmation</small>
-
-
-
-
-      <input type="submit" class="fadeIn fourth" value="Log In">
-    </form>
+      <h3>Role</h3>
+      <select class="fadeIn fourth custom-select" formControlName="role">
+        <option *ngFor="let item of roles" [ngValue]="role">
+          {{ item }}
+        </option>
+      </select>
       
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-      <a class="underlineHover" href="#">Forgot Password?</a>
-    </div>
+      <br />
+      <input [disabled]="!registrationApplicationForm.valid" type="submit" class="fadeIn fourth" value="Register">
+    </form>
 
   </div>
 </div>
