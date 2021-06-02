@@ -1,1 +1,24 @@
-<p>users-view works!</p>
+<!-- IE < 10 does not like giving a tbody a height.  The workaround here applies the scrolling to a wrapped <div>. -->
+<!--[if lte IE 9]>
+<div class="old_ie_wrapper">
+<!--<![endif]-->
+
+<table class="fixed_headers">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of users">
+      <td>{{item.email}}</td>
+      <td>{{item.password}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!--[if lte IE 9]>
+</div>
+<!--<![endif]-->

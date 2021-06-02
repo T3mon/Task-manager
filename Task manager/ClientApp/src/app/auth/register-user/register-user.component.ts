@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormArray, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UseruFullDto } from '../../_interfaces/user/userForRegistrationDto.model';
+import { UserFullDto } from '../../_interfaces/user/userForRegistrationDto.model';
 
 @Component({
   selector: 'app-register-user',
@@ -40,7 +40,7 @@ export class RegisterUserComponent implements OnInit {
 
 
     if (formValues.password == formValues.passwordConfirm) {
-      const user: UseruFullDto = {
+      const user: UserFullDto = {
         email: formValues.email,
         password: formValues.password,
         confirmPassword: formValues.passwordConfirm,

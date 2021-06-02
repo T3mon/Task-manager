@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace Task_manager.Controllers
 {
-    public class AdminController : Controller
+    [Route("api/admin")]
+    [ApiController]
+    public class AdminController : ControllerBase
     {
         private readonly IAdminService _admninService;
 
@@ -16,12 +18,8 @@ namespace Task_manager.Controllers
         {
             _admninService = admninService;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
-        [HttpGet("GetUser")]
-        public async Task<List<User>> GetUser()
+        [HttpGet("GetUsers")]
+        public async Task<List<User>> GetUsers()
         {
             return await _admninService.GetAllUsers();
         }
