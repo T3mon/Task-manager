@@ -5,9 +5,11 @@ using BLL.Service;
 using DAL.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Task_manager.Controllers
@@ -23,7 +25,10 @@ namespace Task_manager.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<Role> _roleManager;
 
-        public AccountController(IUserService userService, IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager)
+        private readonly IConfigurationSection _jwtSettings;
+        private readonly IConfiguration _configuration;
+
+        public AccountController(IConfiguration configuration, IUserService userService, IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager)
         {
             _userService = userService;
             _mapper = mapper;
@@ -32,6 +37,7 @@ namespace Task_manager.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _jwtSettings = _configuration.GetSection("JwtSettings");
         }
         public IActionResult Index()
         {
@@ -52,7 +58,8 @@ namespace Task_manager.Controllers
 
                 return BadRequest(new RegistrationResponseDto { Errors = errors });
             }
-            
+            await _userManager.AddToRoleAsync(user, userForRegistration.Role);
+
             return StatusCode(201);
         }
 
@@ -70,6 +77,23 @@ namespace Task_manager.Controllers
             }
             return StatusCode(204);
         }
+
+
+        public async Task<List<Claim>> GetClaims(User user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Email)
+            };
+            var roles = await _userManager.GetRolesAsync(user);
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+            return claims;
+        }
+
+
 
     }
 }

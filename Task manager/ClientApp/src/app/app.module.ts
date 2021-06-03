@@ -12,6 +12,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material';
+import { JwtModule } from "@auth0/angular-jwt";
+
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
 
 @NgModule({
   declarations: [
@@ -33,7 +38,13 @@ import { MatDatepickerModule } from '@angular/material';
       { path: '', component: LoginUserComponent },
       { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
       { path: 'task', loadChildren: () => import('./task/task.module').then(m => m.TaskModule) },
-    ]),
+    ]), JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ["localhost:44314"],
+        blacklistedRoutes: []
+      }
+    }),
     BrowserAnimationsModule
   ],
   providers: [],

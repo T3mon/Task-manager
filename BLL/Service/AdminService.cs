@@ -26,8 +26,9 @@ namespace BLL.Service
             _mapper = mapper;
         }
 
-        public void AddTask(UserTaskDto userTaskDto)
+        public void AddTask(ModelsDto.UserTaskDto userTaskDto)
         {
+            //Mapin user from Dto to User from Entity
             UserTask userTask = new UserTask()
             {
                 Title = userTaskDto.Title,
@@ -35,11 +36,8 @@ namespace BLL.Service
                 Status = userTaskDto.Status,
                 UserId = _userManager.Users.FirstOrDefault(m => m.Email == userTaskDto.AssignedTo).Id
             };
-
             _applicationDbContext.UserTasks.Add(userTask);
-
             _applicationDbContext.SaveChanges();
-
         }
 
         public async Task<List<User>> GetAllUsers()

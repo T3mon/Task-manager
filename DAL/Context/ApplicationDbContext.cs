@@ -1,4 +1,5 @@
 ﻿using DAL.Entities;
+using DAL.Entities.Configuration;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,6 +16,13 @@ namespace DAL
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
+        }
+
 
         public DbSet<UserTask> UserTasks { get; set; }
 

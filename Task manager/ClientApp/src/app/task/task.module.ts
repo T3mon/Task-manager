@@ -14,7 +14,7 @@ import { EditTaskComponent } from './edit-task/edit-task.component';
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild([
-      { path: 'tasks', component: TasksComponent },
+      { path: '', component: TasksComponent },
       { path: 'addTask', component: AddTaskComponent },
       { path: 'editTask', component: EditTaskComponent },
     ])

@@ -25,7 +25,7 @@ namespace Task_manager.Controllers
             return await _adminService.GetAllUsers();
         }
         [HttpPost("AddTask")]
-        public void AddTask([FromBody] UserTaskDto userTaskDto)
+        public void AddTask([FromBody] BLL.ModelsDto.UserTaskDto userTaskDto)
         {
             _adminService.AddTask(userTaskDto);
         }

@@ -51,6 +51,7 @@ namespace Task_manager
             services.AddAuthentication().AddCookie(op => op.LoginPath = "/Login");
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IAdminService, AdminService>();
+            services.AddTransient<IActionService, ActionService>();
 
             
             services.AddIdentity<User, Role>(x =>
