@@ -7,29 +7,32 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { LoginUserComponent } from './login-user/login-user.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    FetchDataComponent,
     LoginUserComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatInputModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent, pathMatch: 'full' },
       { path: '', component: LoginUserComponent },
-      { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
       { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'task', loadChildren: () => import('./task/task.module').then(m => m.TaskModule) },
     ]),
     BrowserAnimationsModule
   ],

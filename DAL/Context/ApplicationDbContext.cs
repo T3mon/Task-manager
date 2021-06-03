@@ -16,5 +16,8 @@ namespace DAL
 
         }
 
+        public DbSet<UserTask> UserTasks { get; set; }
+
+        
     }
 }

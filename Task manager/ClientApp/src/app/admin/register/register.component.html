@@ -17,13 +17,15 @@
       <small *ngIf="isControlInvalid('passwordConfirm') && hasError('passwordConfirm', 'required')"><sup>*</sup>password needs confirmation</small>
       <h3>Role</h3>
       <select class="fadeIn fourth custom-select" formControlName="role">
-        <option *ngFor="let item of roles" [ngValue]="role">
+        <option *ngFor="let item of roles" >
           {{ item }}
         </option>
       </select>
-      
+
       <br />
       <input [disabled]="!registrationApplicationForm.valid" type="submit" class="fadeIn fourth" value="Register">
+      <a routerLink="/admin/users-view">Go back</a>
+
     </form>
 
   </div>

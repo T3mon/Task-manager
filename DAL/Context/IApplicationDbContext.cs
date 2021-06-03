@@ -10,10 +10,7 @@ namespace DAL
 {
     public interface IApplicationDbContext
     {
-        
-
         public int SaveChanges();
-
-
+        public DbSet<UserTask> UserTasks { get; set; }
     }
 }

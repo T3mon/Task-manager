@@ -1,4 +1,5 @@
-﻿using DAL.Entities;
+﻿using BLL.ModelsDto;
+using DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace BLL.Service.Interfaces
     public interface IAdminService
     {
         Task<List<User>> GetAllUsers();
+        void AddTask(UserTaskDto userTaskDto);
     }
 }

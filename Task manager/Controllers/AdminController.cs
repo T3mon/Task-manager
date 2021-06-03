@@ -1,4 +1,5 @@
-﻿using BLL.Service.Interfaces;
+﻿using BLL.ModelsDto;
+using BLL.Service.Interfaces;
 using DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,16 +13,21 @@ namespace Task_manager.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
-        private readonly IAdminService _admninService;
+        private readonly IAdminService _adminService;
 
         public AdminController(IAdminService admninService)
         {
-            _admninService = admninService;
+            _adminService = admninService;
         }
         [HttpGet("GetUsers")]
         public async Task<List<User>> GetUsers()
         {
-            return await _admninService.GetAllUsers();
+            return await _adminService.GetAllUsers();
+        }
+        [HttpPost("AddTask")]
+        public void AddTask([FromBody] UserTaskDto userTaskDto)
+        {
+            _adminService.AddTask(userTaskDto);
         }
     }
 }

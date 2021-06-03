@@ -1,0 +1,36 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="active"> Add Task </h2>
+
+
+    <!-- Login Form -->
+    <form [formGroup]="addTaskForm" (ngSubmit)="onSubmit(addTaskForm.value)">
+      <input type="text" id="title" class="fadeIn first text-box" name="title" formControlName="title" placeholder="Title"><br />
+      <small *ngIf="isControlInvalid('title') && hasError('title', 'required')"><sup>*</sup>Title is required</small>
+
+      <input type="text" id="description" class="fadeIn second text-box" name="description" formControlName="description" placeholder="Description"><br />
+      <small *ngIf="isControlInvalid('title') && hasError('title', 'required')"><sup>*</sup>Description is required</small>
+
+      <h4 class="fadeIn third">Status</h4>
+      <select class="fadeIn third custom-select" formControlName="status">
+        <option *ngFor="let item of statuses" [ngValue]="item">
+          {{ item }}
+        </option>
+      </select>
+
+      <h4 class="fadeIn fourth"> Assigned to </h4>
+        <select class="fadeIn fourth custom-select" formControlName="assignedTo">
+          <option *ngFor="let item of users" [ngValue]="item">
+            {{ item.email }}
+          </option>
+        </select>
+
+        <br />
+        <input [disabled]="!addTaskForm.valid" type="submit" class="fadeIn fourth" value="Create">
+        <a class="fadeIn fourth" routerLink="/task/tasks">Go back</a>
+
+</form>
+
+  </div>
+</div>

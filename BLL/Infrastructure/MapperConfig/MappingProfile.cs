@@ -25,8 +25,14 @@ namespace BLL.Infrastructure.MapperConfig
             CreateMap<Role, RoleDto>();
             CreateMap<RoleDto, User>();
             
-            CreateMap<Status, StatusDto>();
-            CreateMap<StatusDto, Status>();
+            CreateMap<UserTask, UserTaskDto>();
+
+        //    CreateMap<UserTaskDto, UserTask>()
+        //.ForMember(u => u.UserAsigned, opt => opt.MapFrom(x => x.));
+
+
+            //CreateMap<UserTaskDto, UserTask>();
+
 
         }
 

@@ -1,1 +1,23 @@
-<p>tasks works!</p>
+<table class="fixed_headers">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Status</th>
+      <th>Assigned To</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of tasks">
+      <td>{{item.title}}</td>
+      <td>{{item.description}}</td>
+      <td>{{item.status}}</td>
+      <td>{{item.assignedTo}}</td>
+      <td>
+        <a routerLink="/task/edit">edit</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<a routerLink="/task/addTask">Add task</a>

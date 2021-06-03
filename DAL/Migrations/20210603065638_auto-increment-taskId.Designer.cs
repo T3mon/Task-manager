@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210603065638_auto-increment-taskId")]
+    partial class autoincrementtaskId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,12 +130,12 @@ namespace DAL.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserAsignedId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserAsignedId");
 
                     b.ToTable("UserTasks");
                 });
@@ -241,13 +243,11 @@ namespace DAL.Migrations
 
             modelBuilder.Entity("DAL.Entities.UserTask", b =>
                 {
-                    b.HasOne("DAL.Entities.User", "User")
+                    b.HasOne("DAL.Entities.User", "UserAsigned")
                         .WithMany("Tasks")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserAsignedId");
 
-                    b.Navigation("User");
+                    b.Navigation("UserAsigned");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
