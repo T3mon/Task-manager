@@ -33,7 +33,9 @@ export class RegisterComponent implements OnInit {
   public hasError = (controlName: string, errorName: string) => {
     return this.registrationApplicationForm.controls[controlName].hasError(errorName)
   }
-
+  get role() {
+    return this.registrationApplicationForm.get('roles');
+  }
   public onSubmit(registerFormValue) {
 
     const formValues = { ...registerFormValue };

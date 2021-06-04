@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from '../shared/services/authentication.service';
 import { UserForLoginDto } from '../_interfaces/user/userForLoginDto';
 
 @Component({
@@ -10,6 +11,7 @@ import { UserForLoginDto } from '../_interfaces/user/userForLoginDto';
   styleUrls: ['./login-user.component.css']
 })
 export class LoginUserComponent implements OnInit {
+  private _returnUrl: string;
 
 
   loginApplicationForm: FormGroup = this.formBuilder.group({
@@ -20,13 +22,14 @@ export class LoginUserComponent implements OnInit {
 
   private baseUrl: string;
 
-  constructor(private formBuilder: FormBuilder, private router: Router,
+  constructor(private _authService: AuthenticationService, private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute,
     private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
 
   }
 
   ngOnInit() {
+    this._returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   public isControlInvalid(controlName: string): boolean {
@@ -47,9 +50,12 @@ export class LoginUserComponent implements OnInit {
       password: formValues.password
     };
 
-    this.http.post(this.baseUrl + 'api/accounts/Login', user).subscribe(
+    this._authService.loginUser('api/accounts/Login', user).subscribe(
       result => {
         console.log("Successful login");
+        localStorage.setItem("token", result.token);
+        this._authService.sendAuthStateChangeNotification(result.isAuthSuccessful);
+        this.router.navigate([this._returnUrl]);
 
         this.router.navigate(['/home']);
       },

@@ -21,7 +21,7 @@ namespace Task_manager.Controllers
         }
 
         [HttpGet("GetTasks")]
-        public async Task<List<BLL.ModelsDto.UserTaskDto>> GetUsers()
+        public async Task<List<UserTaskDto>> GetUsers()
         {
             return await _actionService.GetAllTasks();
         }

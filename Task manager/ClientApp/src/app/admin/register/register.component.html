@@ -17,7 +17,7 @@
       <small *ngIf="isControlInvalid('passwordConfirm') && hasError('passwordConfirm', 'required')"><sup>*</sup>password needs confirmation</small>
       <h3>Role</h3>
       <select class="fadeIn fourth custom-select" formControlName="role">
-        <option *ngFor="let item of roles" >
+        <option *ngFor="let item of roles" [ngValue]="item" >
           {{ item }}
         </option>
       </select>

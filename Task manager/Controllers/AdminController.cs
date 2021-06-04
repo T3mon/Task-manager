@@ -1,6 +1,7 @@
 ﻿using BLL.ModelsDto;
 using BLL.Service.Interfaces;
 using DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace Task_manager.Controllers
 {
     [Route("api/admin")]
     [ApiController]
+    [Authorize(Roles = "Administrator")]
     public class AdminController : ControllerBase
     {
         private readonly IAdminService _adminService;
@@ -25,7 +27,7 @@ namespace Task_manager.Controllers
             return await _adminService.GetAllUsers();
         }
         [HttpPost("AddTask")]
-        public void AddTask([FromBody] BLL.ModelsDto.UserTaskDto userTaskDto)
+        public void AddTask([FromBody] UserTaskDto userTaskDto)
         {
             _adminService.AddTask(userTaskDto);
         }

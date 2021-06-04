@@ -13,6 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material';
 import { JwtModule } from "@auth0/angular-jwt";
+import { AuthGuard } from './shared/guards/auth.guard';
+import { AdminGuard } from './shared/guards/admin.guard';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -36,7 +38,7 @@ export function tokenGetter() {
     RouterModule.forRoot([
       { path: 'home', component: HomeComponent, pathMatch: 'full' },
       { path: '', component: LoginUserComponent },
-      { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+      { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard, AdminGuard]},
       { path: 'task', loadChildren: () => import('./task/task.module').then(m => m.TaskModule) },
     ]), JwtModule.forRoot({
       config: {

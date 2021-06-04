@@ -5,14 +5,13 @@ import { AuthenticationService } from '../services/authentication.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
 
   constructor(private _authService: AuthenticationService, private _router: Router) { }
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this._authService.isUserAuthenticated()) {
+    if (this._authService.isUserAdmin())
       return true;
-    }
 
     this._router.navigate(['/'], { queryParams: { returnUrl: state.url } });
     return false;
