@@ -20,4 +20,4 @@
     </tr>
   </tbody>
 </table>
-<a routerLink="/task/addTask">Add task</a>
+<a [style.visibility]="IsUserAdmin ? 'visible' : 'hidden '" routerLink="/task/addTask">Add task</a>

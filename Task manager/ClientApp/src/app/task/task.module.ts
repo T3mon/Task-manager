@@ -16,7 +16,7 @@ import { EditTaskComponent } from './edit-task/edit-task.component';
     RouterModule.forChild([
       { path: '', component: TasksComponent },
       { path: 'addTask', component: AddTaskComponent },
-      { path: 'editTask', component: EditTaskComponent },
+      { path: 'edit', component: EditTaskComponent },
     ])
   ]
 })

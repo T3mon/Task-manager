@@ -56,7 +56,7 @@ export class AddTaskComponent implements OnInit {
       result => {
         console.log("Successful login");
 
-        this.router.navigate(['/task/tasks']);
+        this.router.navigate(['/task']);
       },
       error => {
         console.log(error.error.errors);
