@@ -15,7 +15,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     RouterModule.forChild([
       { path: 'users-view', component: UsersViewComponent },
       { path: 'register', component: RegisterComponent },
-
     ])
   ]
 })

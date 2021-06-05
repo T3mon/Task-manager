@@ -55,9 +55,9 @@ export class LoginUserComponent implements OnInit {
         console.log("Successful login");
         localStorage.setItem("token", result.token);
         this._authService.sendAuthStateChangeNotification(result.isAuthSuccessful);
-        this.router.navigate([this._returnUrl]);
+        //this.router.navigate([this._returnUrl]);
 
-        this.router.navigate(['/home']);
+        this.router.navigate(['/task']);
       },
       error => {
         console.log(error.error.errors);

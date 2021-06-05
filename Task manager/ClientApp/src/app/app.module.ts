@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
 import { LoginUserComponent } from './login-user/login-user.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
@@ -24,7 +23,6 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
     LoginUserComponent
   ],
   imports: [
@@ -36,10 +34,9 @@ export function tokenGetter() {
     MatInputModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: 'home', component: HomeComponent, pathMatch: 'full' },
       { path: '', component: LoginUserComponent },
       { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard, AdminGuard]},
-      { path: 'task', loadChildren: () => import('./task/task.module').then(m => m.TaskModule) },
+      { path: 'task', loadChildren: () => import('./task/task.module').then(m => m.TaskModule), canActivate: [AuthGuard] },
     ]), JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

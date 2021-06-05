@@ -14,12 +14,12 @@ export class AuthenticationService {
 
   constructor(private _http: HttpClient, private _jwtHelper: JwtHelperService) { }
 
-  public isUserAdmin = (): boolean => {
+  public getUserRole = (): string => {
     const token = localStorage.getItem("token");
     const decodedToken = this._jwtHelper.decodeToken(token);
     const role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
 
-    return role === 'Administrator';
+    return role;
   }
 
   public isUserAuthenticated = (): boolean => {

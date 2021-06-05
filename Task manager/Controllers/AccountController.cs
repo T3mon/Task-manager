@@ -67,19 +67,6 @@ namespace Task_manager.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] UserForLoginDto userForLogin)
         {
-            //if (!TryValidateModel(userForLogin)) return StatusCode(500);
-
-            //var user = _mapper.Map<User>(userForLogin);
-            //var claims = await GetClaims(user);
-
-
-            //var res = await _signInManager.PasswordSignInAsync(userForLogin.Email, userForLogin.Password, true, false);
-            //if (res.Succeeded)
-            //{
-            //    return StatusCode(200);
-            //}
-            //return StatusCode(204);
-
             var user = await _userManager.FindByNameAsync(userForLogin.Email);
 
             if (user == null || !await _userManager.CheckPasswordAsync(user, userForLogin.Password))
