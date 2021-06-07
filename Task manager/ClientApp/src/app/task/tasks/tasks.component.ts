@@ -28,7 +28,7 @@ export class TasksComponent implements OnInit {
   get status() {
     return this.statusChangeForm.get('statuses');
   }
-  constructor(public fb: FormBuilder,private authenticationService: AuthenticationService, private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(public fb: FormBuilder, private authenticationService: AuthenticationService, private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
     if (authenticationService.getUserRole() === "Administrator") {
       this.IsUserAdmin = true;
@@ -39,6 +39,9 @@ export class TasksComponent implements OnInit {
   ngOnInit() {
     this.http.get<Array<userTaskDto>>(this.baseUrl + 'api/action/GetTasks').subscribe(data => {
       this.tasks = data;
+      if (this.authenticationService.getUserRole() === "Developer") {
+        this.statuses.slpice(1,2);
+      }
     })
   }
 

@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
         result => {
           console.log("Successful registration");
 
-          this.router.navigate(['/home']);
+          this.router.navigate(['/users-view']);
         },
         error => {
           console.log(error.error.errors);
