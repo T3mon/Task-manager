@@ -26,6 +26,11 @@ namespace BLL.Service
             _userManager = userManager;
         }
 
+        public async Task DeleteTask(string id)
+        {
+            _applicationDbContext.UserTasks.Remove(await _applicationDbContext.UserTasks.FirstOrDefaultAsync(t => t.Id == id));
+        }
+
         public async Task<List<UserTaskDto>> GetAllTasks()
         {
             List<UserTaskDto> TasksToReturn = new List<UserTaskDto>();
@@ -34,6 +39,7 @@ namespace BLL.Service
             {
                 TasksToReturn.Add(new UserTaskDto()
                 {
+                    Id = item.Id,
                     Title = item.Title,
                     Description = item.Description,
                     Status = item.Status,

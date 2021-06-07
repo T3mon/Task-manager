@@ -21,9 +21,14 @@ namespace Task_manager.Controllers
         }
 
         [HttpGet("GetTasks")]
-        public async Task<List<UserTaskDto>> GetUsers()
+        public async Task<List<UserTaskDto>> GetTasks()
         {
             return await _actionService.GetAllTasks();
+        }
+        [HttpDelete("DeleteTask")]
+        public async Task DeleteTask(string Id)
+        {
+            await _actionService.DeleteTask(Id);
         }
     }
 }

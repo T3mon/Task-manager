@@ -11,6 +11,7 @@ namespace BLL.Service.Interfaces
     public interface IActionService
     {
         Task<List<UserTaskDto>> GetAllTasks();
+        Task DeleteTask(string Id);
 
     }
 }

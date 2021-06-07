@@ -5,7 +5,7 @@
       <th>Description</th>
       <th>Status</th>
       <th>Assigned To</th>
-      <th>Actions</th>
+      <th>Change status to</th>
     </tr>
   </thead>
   <tbody>
@@ -15,7 +15,13 @@
       <td>{{item.status}}</td>
       <td>{{item.assignedTo}}</td>
       <td>
-        <a routerLink="/task/edit">edit</a>
+        <form [formGroup]="statusChangeForm" >
+          <select (change)="changeStatus($event)" formControlName="status"  >
+            <option *ngFor="let itemStatus of statuses" [ngValue]="itemStatus">
+              {{ itemStatus }}
+            </option>
+          </select>
+        </form>
       </td>
     </tr>
   </tbody>
